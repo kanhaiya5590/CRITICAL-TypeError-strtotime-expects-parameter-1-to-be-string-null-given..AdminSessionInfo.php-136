@@ -1,0 +1,17 @@
+diff --git a/vendor/magento/module-security/Model/AdminSessionsManager.php b/vendor/magento/module-security/Model/AdminSessionsManager.php
+index 154760eb..758306d1 100644
+--- a/vendor/magento/module-security/Model/AdminSessionsManager.php
++++ b/vendor/magento/module-security/Model/AdminSessionsManager.php
+@@ -335,7 +335,11 @@ class AdminSessionsManager
+      */
+     private function lastProlongIsOldEnough()
+     {
+-        $lastProlongTimestamp = strtotime($this->getCurrentSession()->getUpdatedAt());
++        $lastUpdatedTime = $this->getCurrentSession()->getUpdatedAt();
++        if($lastUpdatedTime === null) {
++            $lastUpdatedTime = "now";
++        }
++        $lastProlongTimestamp = strtotime($lastUpdatedTime);
+         $nowTimestamp = $this->authSession->getUpdatedAt();
+ 
+         $diff = $nowTimestamp - $lastProlongTimestamp;

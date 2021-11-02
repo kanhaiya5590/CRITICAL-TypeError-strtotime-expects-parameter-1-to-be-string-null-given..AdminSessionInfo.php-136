@@ -1,0 +1,17 @@
+diff --git a/vendor/magento/module-security/Model/AdminSessionInfo.php b/vendor/magento/module-security/Model/AdminSessionInfo.php
+index c14d399e..9c422989 100644
+--- a/vendor/magento/module-security/Model/AdminSessionInfo.php
++++ b/vendor/magento/module-security/Model/AdminSessionInfo.php
+@@ -133,7 +133,11 @@ class AdminSessionInfo extends \Magento\Framework\Model\AbstractModel
+         $currentTime = $this->dateTime->gmtTimestamp();
+         $lastUpdatedTime = $this->getUpdatedAt();
+         if (!is_numeric($lastUpdatedTime)) {
+-            $lastUpdatedTime = strtotime($lastUpdatedTime);
++            if($lastUpdatedTime === null) {
++                $lastUpdatedTime = 0;
++            }else {
++                $lastUpdatedTime = strtotime($lastUpdatedTime);
++            }
+         }
+ 
+         return $lastUpdatedTime <= ($currentTime - $lifetime) ? true : false;
