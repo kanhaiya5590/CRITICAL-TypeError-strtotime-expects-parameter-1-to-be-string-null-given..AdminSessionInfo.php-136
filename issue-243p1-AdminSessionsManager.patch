@@ -8,7 +8,7 @@ index 154760eb..758306d1 100644
      {
 -        $lastProlongTimestamp = strtotime($this->getCurrentSession()->getUpdatedAt());
 +        $lastUpdatedTime = $this->getCurrentSession()->getUpdatedAt();
-+        if($lastUpdatedTime === null) {
++        if($lastUpdatedTime === null || is_numeric($lastUpdatedTime)) {
 +            $lastUpdatedTime = "now";
 +        }
 +        $lastProlongTimestamp = strtotime($lastUpdatedTime);
